@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
+import { connect } from "react-redux";
+// import { Button } from "reactstrap";
+
+
+import { getSmurfs, addSmurf } from "../actions";
 /*
  to wire this component up you're going to need a few things.
  I'll let you do this part on your own. 
@@ -10,13 +15,38 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>SMURFS! 2.0 W/ Redux</h1>
-        <div>Welcome to your Redux version of Smurfs!</div>
-        <div>Start inside of your `src/index.js` file!</div>
-        <div>Have fun!</div>
+       {this.props.smurfs.map(smurf => {
+         return(
+           <div>
+          <h1>{smurf.name}</h1>
+          <ul>
+            <li>Age: {smurf.age}</li>
+            <li>Height: {smurf.height}</li>
+          </ul>
+          </div>
+         );
+       })}
+      
+         <input type="text" name="name" placeholder="Name" />
+         <input type="number" name="age" placeholder="Age" />
+         <input type="text" name="height" placeholder="Height" />
+         <button onClick={this.props.addSmurf}>Add Smurf</button>
+         
+       
       </div>
     );
+  };
+
+
+componentDidMount(){
+  this.props.getSmurfs();
+}
+}
+const mapStateToProps = state => {
+  return{
+    smurfs: state.smurfs
   }
 }
-
-export default App;
+export default connect(
+  mapStateToProps,
+  { getSmurfs, addSmurf })(App);
