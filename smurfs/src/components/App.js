@@ -12,6 +12,30 @@ import { getSmurfs, addSmurf } from "../actions";
  `How do I ensure that my component links the state to props?`
  */
 class App extends Component {
+
+  state = {
+    
+      name: '',
+      age: '', 
+      height: ''
+    
+  }
+
+  onClick = e => {
+    e.preventDefault();
+    const newSmurf = { name: this.state.name, 
+                        age: this.state.age, 
+                      height: this.state.height}
+    this.props.addSmurf(newSmurf)
+    this.setState({name: '', age: '', height: ''})
+  }
+
+  handleChange = e => {
+    const { name, value } = e.target;
+    this.setState({
+      [name]: value
+    });
+  };
   render() {
     return (
       <div className="App">
@@ -27,10 +51,10 @@ class App extends Component {
          );
        })}
       
-         <input type="text" name="name" placeholder="Name" />
-         <input type="number" name="age" placeholder="Age" />
-         <input type="text" name="height" placeholder="Height" />
-         <button onClick={this.props.addSmurf}>Add Smurf</button>
+         <input onChange={this.handleChange} type="text" name="name" placeholder="Name" />
+         <input onChange={this.handleChange}  type="text" name="age" placeholder="Age" />
+         <input onChange={this.handleChange}  type="text" name="height" placeholder="Height" />
+         <button  onChange={this.handleChange}  onClick={this.onClick}>Add Smurf</button>
          
        
       </div>

@@ -8,6 +8,7 @@ export const FETCH_START = "START";
 export const FETCH_SUCCESS = "SUCCESS";
 export const FETCH_ERROR = "ERROR";
 export const ADD_SMURF = "ADD_SMURF"
+export const POST_SUCCESS = "POST_SUCCESS";
 
 /*
   For this project you'll need at least 2 action creators for the main portion,
@@ -42,7 +43,7 @@ export const getSmurfs = () => {
   }
 }
 
-export const addSmurf = (e, smurf) => {
+export const addSmurf = (smurf) => {
   return dispatch => {
     dispatch({
       type: ADD_SMURF
@@ -52,7 +53,7 @@ export const addSmurf = (e, smurf) => {
     .then(res => {
       console.log("Res Data", res.data);
       dispatch({
-        type: FETCH_SUCCESS,
+        type: POST_SUCCESS,
         smurfs: res.data
       });
     })

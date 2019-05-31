@@ -5,7 +5,8 @@ import {
   FETCH_START, 
   FETCH_SUCCESS, 
   FETCH_ERROR, 
-  ADD_SMURF
+  ADD_SMURF, 
+  POST_SUCCESS
 } from '../actions';
 
  const initialState = {
@@ -54,6 +55,13 @@ function reducer(state = initialState, action){
       error: '', 
       addingSmurf: true
     }
+    case POST_SUCCESS:
+        return{
+          ...state, 
+          error: '', 
+          addingSmurf: false, 
+          smurfs: [...state.smurfs, action.smurfs]
+        }
     default: 
     return state
   }
